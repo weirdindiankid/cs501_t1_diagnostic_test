@@ -14,4 +14,4 @@ migrations
 
 # Add SQLITE DB
 diagnostic
-diagnostic_db
+diagnostic_test
