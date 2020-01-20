@@ -13,9 +13,16 @@ class RegisterAPI(MethodView):
     User Registration Resource
     """
 
+    def get(self):
+    	responseObject = {
+    		'status': 'success',
+    		'message': 'Request successful but please send an HTTP POST request to register the user.'
+    	}
+    	return make_response(jsonify(responseObject)), 201
+
     def post(self):
         # get the post data
-        post_data = request.get_json()
+        post_data = request.get_json(); print(request)
         # check if user already exists
         user = User.query.filter_by(email=post_data.get('email')).first()
         if not user:
@@ -49,6 +56,7 @@ class RegisterAPI(MethodView):
             }
             return make_response(jsonify(responseObject)), 202
 
+
 # define the API resources
 registration_view = RegisterAPI.as_view('register_api')
 
@@ -56,5 +64,5 @@ registration_view = RegisterAPI.as_view('register_api')
 auth_blueprint.add_url_rule(
     '/auth/register',
     view_func=registration_view,
-    methods=['POST']
+    methods=['POST', 'GET']
 )
